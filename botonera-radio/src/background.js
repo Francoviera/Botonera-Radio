@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, Menu } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -60,8 +60,42 @@ app.on('ready', async () => {
       console.error('Vue Devtools failed to install:', e.toString())
     }
   }
-  createWindow()
+  createWindow();
+  const mainMenu = Menu.buildFromTemplate(templateMenu);
+  Menu.setApplicationMenu(mainMenu);
 })
+
+function createNewButtonWindow(){
+  createWindowDetail();
+}
+
+const templateMenu = [
+  // {
+  //     label: 'File',
+  //     submenu: [
+  //         {
+  //             label: 'Nuevo Boton',
+  //             accelerator: 'Ctrl+N',
+  //             click(){
+  //                 createNewButtonWindow();
+  //             }
+  //         }
+  //     ]
+  // },
+  // {
+  //     label: 'Elimina Todos los Botones',
+  //     click(){
+  //         newButtonWindow = null;
+  //     }
+  // },
+  {
+      label: 'Salir',
+      accelerator: process.platform == 'darwin' ? 'command+Q' : 'Ctrl+Q',
+      click() {
+          app.quit();
+      }
+  },
+];
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
@@ -76,4 +110,18 @@ if (isDevelopment) {
       app.quit()
     })
   }
+  templateMenu.push({
+    label: 'Herramientas',
+    submenu: [
+        {
+            label: 'Muestra/Oculta Herramientas',
+            click(item, focusedWindow){
+                focusedWindow.toggleDevTools();
+            }
+        },
+        {
+            role: 'reload'
+        }
+    ]
+  })
 }
