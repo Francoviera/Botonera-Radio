@@ -9,18 +9,16 @@
 
         <!-- Blog Post -->
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+            <div class="card h-150">
               <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Boton</a>
-                </h4>
                 <h5>Name</h5>
-                <p class="card-text">aqui iria el reproductor!</p>
+                <p class="card-text">Categoria</p>
+                <audio src="../assets/audios/audio1.mp3" controls="controls" type="audio/mpeg" preload="preload" width="400">
+                </audio>
               </div>
-              <div class="card-footer">
+              <!-- <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
+              </div> -->
             </div>
         </div>
 
@@ -90,6 +88,11 @@ export default {
   name: 'Buttons',
   props: {
     
+  },
+  mounted(){
+    var audio = new Audio(require("../assets/audios/2.mp3"));
+    audio.play();
+    audio.pause();
   }
 }
 </script>
